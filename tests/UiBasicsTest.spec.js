@@ -26,9 +26,6 @@ test.only('Test homepage loads when correct credentials are entered', async ({
     const context = await browser.newContext();
     const page = await context.newPage();
     const cards = page.locator('.card-body a');
-    const nthCard = cards.nth(2);
-    const firstCard = cards.first();
-    const lastCard = cards.last();
 
     // Act
     await page.goto('https://rahulshettyacademy.com/loginpagePractise/');
@@ -37,9 +34,9 @@ test.only('Test homepage loads when correct credentials are entered', async ({
     await page.locator('#signInBtn').click();
 
     // Assert
-    console.log(await firstCard.textContent());
-    console.log(await nthCard.textContent());
-    console.log(await lastCard.textContent());
+    await cards.first().waitFor();
+    const cardContents = await cards.allTextContents();
+    console.log(cardContents);
 });
 
 test('Page playwright test', async ({ page }) => {
