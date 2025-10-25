@@ -2,10 +2,9 @@ import { expect, test } from '@playwright/test';
 
 const BASE_URL = 'https://rahulshettyacademy.com';
 
-const loginHappy =
-    'Test another homepage loads when correct credentials are entered';
-
-const loginHappyFn = async ({ page }) => {
+test('Test another homepage loads when correct credentials are entered', async ({
+    page,
+}) => {
     // Arrange
     const cards = page.locator('.card-body b');
     const url = `${BASE_URL}/client/auth/login/`;
@@ -18,6 +17,4 @@ const loginHappyFn = async ({ page }) => {
 
     // Assert
     await expect(cards).not.toHaveCount(0);
-};
-
-test(loginHappy, loginHappyFn);
+});
