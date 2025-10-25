@@ -20,4 +20,4 @@ const loginHappyFn = async ({ page }) => {
     await expect(cards).not.toHaveCount(0);
 };
 
-test.only(loginHappy, loginHappyFn);
+test(loginHappy, loginHappyFn);
