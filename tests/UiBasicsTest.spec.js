@@ -19,7 +19,7 @@ test('Test incorrect username/password message appears when incorrect credential
     await expect(locator).toHaveText('Incorrect username/password.');
 });
 
-test.only('Test homepage loads when correct credentials are entered', async ({
+test('Test homepage loads when correct credentials are entered', async ({
     browser,
 }) => {
     // Arrange
@@ -37,10 +37,4 @@ test.only('Test homepage loads when correct credentials are entered', async ({
     await cards.first().waitFor();
     const cardContents = await cards.allTextContents();
     console.log(cardContents);
-});
-
-test('Page playwright test', async ({ page }) => {
-    await page.goto('https://google.com');
-    console.log(await page.title());
-    await expect(page).toHaveTitle('Google');
 });
