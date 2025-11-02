@@ -8,8 +8,8 @@ const config = {
     use: {
         headless: false,
         browserName: 'chromium',
-        // browserName: 'firefox',
-        // browserName: 'webkit',
+        screenshot: 'on',
+        trace: 'on',
     },
 };
 
