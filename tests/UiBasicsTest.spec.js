@@ -102,7 +102,7 @@ test('Test the link has the "blinking" class', async ({ page }) => {
     await expect(docLink).toHaveAttribute('class', 'blinkingText');
 });
 
-test.only('Handling child windows', async ({ browser }) => {
+test('Handling child windows', async ({ browser }) => {
     // Arrange
     const context = await browser.newContext();
     const page = await context.newPage();

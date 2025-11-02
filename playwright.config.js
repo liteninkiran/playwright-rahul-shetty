@@ -6,7 +6,7 @@ const config = {
     },
     reporter: 'html',
     use: {
-        headless: true,
+        headless: false,
         browserName: 'chromium',
         // browserName: 'firefox',
         // browserName: 'webkit',
