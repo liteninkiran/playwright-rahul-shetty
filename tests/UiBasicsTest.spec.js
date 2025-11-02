@@ -120,5 +120,7 @@ test.only('Handling child windows', async ({ browser }) => {
     const arrayText = text.split('@');
     const emailDomain = arrayText[1].split(' ')[0];
     await userName.fill(emailDomain);
-    const userText = await userName.textContent();
+    const userText = await userName.inputValue();
+
+    console.log(userText);
 });
