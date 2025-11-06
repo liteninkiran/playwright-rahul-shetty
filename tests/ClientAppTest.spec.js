@@ -61,7 +61,7 @@ test.only('Test basket', async ({
     await page.locator('text=Checkout').click();
 
     // Enter country
-    await countryInput.pressSequentially('ind');
+    await countryInput.pressSequentially('ind', { delay: 150 });
     await countries.waitFor();
     const countryCount = await countries.locator('button').count();
 
