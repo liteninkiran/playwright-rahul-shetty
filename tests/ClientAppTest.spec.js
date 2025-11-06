@@ -27,27 +27,52 @@ test.only('Test basket', async ({
     const url = `${BASE_URL}/client/auth/login/`;
     const cards = page.locator('.card-body b');
     const products = page.locator('.card-body');
+    const countryInput = page.locator("[placeholder*='Country']");
+    const countries = page.locator('.ta-results');
     await page.goto(url);
 
     // Act
+    // Login
     await page.locator('#userEmail').fill('test551254@gmail.com');
     await page.locator('#userPassword').fill('Rahulshetty1!');
     await page.locator('#login').click();
+
+    // Add items to cart
     await cards.first().waitFor();
     const count = await products.count();
 
     for (let i = 0; i < count; i++) {
-        const x = products.nth(i).locator('b');
-        if (await x.textContent() === productName) {
+        const product = products.nth(i).locator('b');
+        if (await product.textContent() === productName) {
             await products.nth(i).locator('text=Add To Cart').click();
             break;
         }
     }
 
+    // Goto cart
     await page.locator("[routerlink*='cart']").click();
     await page.locator('div li').first().waitFor();
-    const bool = await page.locator(`h3:has-text("${productName}")`).isVisible();
 
     // Assert
+    const bool = await page.locator(`h3:has-text("${productName}")`).isVisible();
     expect(bool).toBeTruthy();
+
+    // Goto checkout
+    await page.locator('text=Checkout').click();
+
+    // Enter country
+    await countryInput.pressSequentially('ind');
+    await countries.waitFor();
+    const countryCount = await countries.locator('button').count();
+
+    for (let i = 0; i < countryCount; i++) {
+        const btn = countries.locator('button').nth(i);
+        const text = await btn.textContent();
+        if (text.trim() === 'India') {
+            await btn.click();
+            break;
+        }
+    }
+    await page.pause();
+
 });
