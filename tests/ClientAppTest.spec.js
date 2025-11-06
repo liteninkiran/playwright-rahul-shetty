@@ -21,7 +21,7 @@ test('Test another homepage loads when correct credentials are entered', async (
     await expect(cards).not.toHaveCount(0);
 });
 
-test.only('Test basket', async ({
+test('Test basket', async ({
     page,
 }) => {
     // Arrange
