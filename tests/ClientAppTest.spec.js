@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 const BASE_URL = 'https://rahulshettyacademy.com';
+const USERNAME = 'dave.jones-test@example.net'
+const PASSWORD = 'Password1!'
 
 test('Test another homepage loads when correct credentials are entered', async ({
     page,
@@ -11,8 +13,8 @@ test('Test another homepage loads when correct credentials are entered', async (
     await page.goto(url);
 
     // Act
-    await page.locator('#userEmail').fill('test551254@gmail.com');
-    await page.locator('#userPassword').fill('Rahulshetty1!');
+    await page.locator('#userEmail').fill(USERNAME);
+    await page.locator('#userPassword').fill(PASSWORD);
     await page.locator('#login').click();
 
     // Assert
@@ -29,12 +31,15 @@ test.only('Test basket', async ({
     const products = page.locator('.card-body');
     const countryInput = page.locator("[placeholder*='Country']");
     const countries = page.locator('.ta-results');
+    const emailLabel = page.locator(".user__name label");
+    const hero = page.locator('.hero-primary');
+    const orderNumber = page.locator('.em-spacer-1 .ng-star-inserted');
     await page.goto(url);
 
     // Act
     // Login
-    await page.locator('#userEmail').fill('test551254@gmail.com');
-    await page.locator('#userPassword').fill('Rahulshetty1!');
+    await page.locator('#userEmail').fill(USERNAME);
+    await page.locator('#userPassword').fill(PASSWORD);
     await page.locator('#login').click();
 
     // Add items to cart
@@ -73,6 +78,16 @@ test.only('Test basket', async ({
             break;
         }
     }
-    await page.pause();
 
+    // Assert
+    await expect(emailLabel).toHaveText(USERNAME);
+
+    // Submit order
+    await page.locator('.action__submit').click();
+
+    // Assert
+    await expect(hero).toHaveText(' Thankyou for the order. ');
+    await expect(hero).toHaveText('THANKYOU FOR THE ORDER.', { useInnerText: true });
+    const orderId = await orderNumber.textContent();
+    console.log(orderId);
 });
